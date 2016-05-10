@@ -22,6 +22,7 @@ public class Main {
               .module(TextTemplateModule.class, conf ->
                   conf.setStaticallyCompile(true)
               )
+              .add(new KotHandler())
           )
         )
         .handlers(c -> {
@@ -59,6 +60,7 @@ public class Main {
                 if (connection != null) try{connection.close();} catch(SQLException e){}
               }
             })
+            .get("kot",KotHandler.class)
             .files(f -> f.dir("public"));
         }
       )
