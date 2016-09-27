@@ -24,6 +24,8 @@ public class Main {
               )
                   .add(new CardsStorage())
               .add(new KotHandler())
+                  .add(new AccGetHandler())
+                  .add(new AccPostHandler())
           )
         )
         .handlers(c -> {
@@ -62,8 +64,8 @@ public class Main {
               }
             })
             .get("kot",KotHandler.class)
-                  .get("/apitest/accounts/:account?",AccGetHandler.class)
-                  .post("/apitest/accounts/:account:[\\d]+/:operation",AccPostHandler.class)
+                  .get("apitest/accounts/:account?",AccGetHandler.class)
+                  .post("apitest/accounts/:account:[\\d]+/:operation?",AccPostHandler.class)
             .files(f -> f.dir("public"));
         }
       )

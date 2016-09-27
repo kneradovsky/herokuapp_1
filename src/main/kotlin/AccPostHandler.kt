@@ -12,7 +12,7 @@ class AccPostHandler : Handler {
         if(ctx!=null) {
             val storage:CardsStorage = ctx.get(CardsStorage::class.java)
             val account_id = ctx.pathTokens["account"];
-            val operation=ctx.pathTokens["account"];
+            val operation=ctx.pathTokens["operation"];
             if(account_id.isNullOrEmpty()) {
                 return ctx.response.status(500).send("Invalid account")
             }
