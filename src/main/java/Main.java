@@ -22,6 +22,7 @@ public class Main {
               .module(TextTemplateModule.class, conf ->
                   conf.setStaticallyCompile(true)
               )
+                  .add(new CardsStorage())
               .add(new KotHandler())
           )
         )
@@ -61,6 +62,8 @@ public class Main {
               }
             })
             .get("kot",KotHandler.class)
+                  .get("/apitest/accounts/:account?",AccGetHandler.class)
+                  .post("/apitest/accounts/:account:[\\d]+/:operation",AccPostHandler.class)
             .files(f -> f.dir("public"));
         }
       )
