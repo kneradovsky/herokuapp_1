@@ -1,5 +1,6 @@
 import ratpack.handling.Context
 import ratpack.handling.Handler
+import ratpack.http.Status
 import ratpack.jackson.Jackson.json
 
 /**
@@ -13,8 +14,10 @@ class AccGetHandler : Handler {
             if(account_id.isNullOrEmpty()) {
                 ctx.render(json(storage.accounts))
             } else {
-                val account = storage.accounts.filter { it.account_id.toString().equals(account_id) }.first()
-                ctx.render(json(account))
+                val account = storage.accounts.filter { it.account_id.toString().equals(account_id) }.firstOrNull();
+                if(account == null) 
+                    ctx.response.status(404).send("account not found");
+                else ctx.render(json(account))
             }
         }
     }
