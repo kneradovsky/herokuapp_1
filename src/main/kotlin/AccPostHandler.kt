@@ -17,19 +17,31 @@ class AccPostHandler : Handler {
                 return ctx.response.status(500).send("Invalid account")
             }
             if(operation.isNullOrEmpty()) return ctx.response.status(500).send("Operation is not set");
-            if(!operation.equals("rename")) return ctx.response.status(400).send("Operation is not supported");
             var account = storage.accounts.find { it.account_id.toString().equals(account_id) }
             if(account==null) return ctx.response.status(404).send("account is not found");
-            val form = ctx.parse(Form::class.java)
-            form.then {
-                val newname = it["name"]
-                if(newname.isNullOrEmpty())  ctx.response.status(400).send("Invalid parameters")
-                else  {
-                    account.title=newname!!
-                    ctx.render(json(account))
-                };
-
+            when(operation) {
+                "rename" -> renameAccount(ctx,account)
+                "delete" -> deleteAccount(ctx,account.account_id)
+                else -> ctx.response.status(400).send("Operation is not supported");
             }
         }
+    }
+    fun renameAccount(ctx: Context,account: AccountData) {
+        val form = ctx.parse(Form::class.java)
+        form.then {
+            val newname = it["name"]
+            if(newname.isNullOrEmpty())  ctx.response.status(400).send("Invalid parameters")
+            else  {
+                account.title=newname!!
+                ctx.render(json(account))
+            };
+        }
+    }
+
+    fun deleteAccount(ctx: Context,accountId:Int) {
+        val storage:CardsStorage = ctx.get(CardsStorage::class.java)
+        if(storage.deleteAccount(accountId))
+            ctx.response.status(204).send("account deleted")
+        else ctx.response.status(404).send("account not deleted")
     }
 }
