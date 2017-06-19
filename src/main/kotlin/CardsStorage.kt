@@ -21,5 +21,8 @@ public class CardsStorage {
         accounts.add(AccountData(pan="5449***1336",account_id = 12345683,title_small = "MasterCard1336",title = "Master6",balance = 6000.00f,currency = "RUR"))
 
     }
+    fun deleteAccount(accid:Int):Boolean {
+        return accounts.removeIf {it.account_id==accid}
+    }
 }
 
