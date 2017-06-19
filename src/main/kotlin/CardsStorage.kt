@@ -6,6 +6,13 @@ import java.util.*
 public class CardsStorage {
     public val accounts = ArrayList<AccountData>()
     init {
+        initializeStorage();
+    }
+    fun resetStorage() {
+        accounts.clear();
+        initializeStorage()
+    }
+    private fun initializeStorage() {
         accounts.add(AccountData(pan="5449***1331",account_id = 12345678,title_small = "MasterCard1331",title = "Master1",balance = 1000.00f,currency = "RUR"))
         accounts.add(AccountData(pan="5449***1332",account_id = 12345679,title_small = "MasterCard1332",title = "Master2",balance = 100.00f,currency = "RUR"))
         accounts.add(AccountData(pan="5449***1333",account_id = 12345680,title_small = "MasterCard1333",title = "Master3",balance = 10000.00f,currency = "RUR"))
