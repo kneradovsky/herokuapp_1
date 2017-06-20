@@ -41,7 +41,7 @@ task stage {
 
 allure {
   autoconfigure = true
-  version = '1.5.4'
+  version = '2.1.0'
 }
 
 test {
