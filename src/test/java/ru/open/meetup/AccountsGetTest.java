@@ -20,9 +20,14 @@ import org.junit.runners.JUnit4;
  * Created by vk on 19.06.17.
  */
 public class AccountsGetTest {
-  private String baseUrl = System.getProperty("AppBaseURL","https://kn-ktapp.herokuapp.com/apitest");
+  private String baseUrl = hostUrl+"apitest";
+  private static String hostUrl = System.getProperty("AppBaseURL","https://kn-ktapp.herokuapp.com/");
+
   @BeforeClass
   public static void beforeClass() {
+    get(hostUrl+"kot/resetstorage")
+        .then()
+        .statusCode(200);
   }
 
   @Test

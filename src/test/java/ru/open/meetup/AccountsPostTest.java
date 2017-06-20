@@ -16,13 +16,23 @@ import io.restassured.path.json.JsonPath;
 import java.util.List;
 import java.util.Map;
 import org.hamcrest.Matchers;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
  * Created by vk on 19.06.17.
  */
 public class AccountsPostTest {
-  private String baseUrl = System.getProperty("AppBaseURL","https://kn-ktapp.herokuapp.com/apitest");
+  private String baseUrl = hostUrl+"apitest";
+  private static String hostUrl = System.getProperty("AppBaseURL","https://kn-ktapp.herokuapp.com/");
+
+  @BeforeClass
+  public static void beforeAllTests() {
+    get(hostUrl+"kot/resetstorage")
+        .then()
+        .statusCode(200);
+  }
+
   @Test
   public void renameTest() {
     int accId = 12345682;
@@ -44,7 +54,7 @@ public class AccountsPostTest {
         .then()
         .statusCode(200)
         .extract().jsonPath();
-    Map<String, Object> afterAcc = beforeJP.getMap("");
+    Map<String, Object> afterAcc = afterJP.getMap("");
     assertThat("element has wrong id", afterAcc.get("account_id"), Matchers.equalTo(beforeAcc.get("account_id")));
     assertThat("element has wrong title", afterAcc.get("title"), Matchers.equalTo(newName));
     assertThat("element has wrong small title", afterAcc.get("title_small"), Matchers.equalTo(beforeAcc.get("title_small")));
@@ -112,10 +122,10 @@ public class AccountsPostTest {
         .then()
         .statusCode(200)
         .extract().jsonPath();
-    List<Map<String, Object>> afterAccs = beforeJP.getList("");
+    List<Map<String, Object>> afterAccs = afterJP.getList("");
     assertThat("before and after has equal size", afterAccs.size(), Matchers.equalTo(beforeAccs.size()-1));
     assertTrue("before doesn't contain all from after", beforeAccs.containsAll(afterAccs));
-    assertFalse("after contains all element from before",afterAccs.containsAll(afterAccs));
+    assertFalse("after contains all element from before",afterAccs.containsAll(beforeAccs));
     assertThat("after has original element",afterAccs,not(hasItem(elem2delete)));
   }
 
