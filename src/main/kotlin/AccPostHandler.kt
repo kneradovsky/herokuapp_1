@@ -33,6 +33,7 @@ class AccPostHandler : Handler {
             if(newname.isNullOrEmpty())  ctx.response.status(400).send("Invalid parameters")
             else  {
                 account.title=newname!!
+                account.title_small=newname!!
                 ctx.render(json(account))
             };
         }
