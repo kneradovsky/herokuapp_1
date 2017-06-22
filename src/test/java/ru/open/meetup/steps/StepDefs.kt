@@ -2,7 +2,7 @@ package ru.open.meetup.steps
 
 import cucumber.api.DataTable
 import cucumber.api.java.en.Given
-import io.qameta.allure.Attachment
+
 import io.restassured.RestAssured.given
 import io.restassured.path.json.JsonPath
 import io.restassured.response.Response
@@ -74,7 +74,7 @@ class StepDefs {
     @Given("^сохранить ответ$")
     fun storeResponse() {
         storedJp = currentResponse!!.then().extract().jsonPath()
-        Attachments.attachResponse(storedJp.toString())
+        //Attachments.attachResponse(storedJp.toString())
     }
 
     @Given("^проверить статуст ответа (\\d*)$")
@@ -86,7 +86,7 @@ class StepDefs {
     @Given("^проверить поля ответа списка:$")
     fun verifyListFields(data:DataTable) {
         val jpResp = currentResponse!!.then().extract().jsonPath()
-        Attachments.attachResponse(jpResp.toString())
+        //Attachments.attachResponse(jpResp.toString())
         val listAcc:List<Map<String,Object>> = jpResp.getList("")
         data.asMaps(String::class.java,String::class.java).forEach { row ->
             val filteredList = listAcc.filter { it[row["имя"]].toString().equals(row["значение"]) }
@@ -115,7 +115,7 @@ class StepDefs {
     fun verifyListLen(strlen:String) {
         val reqlen = strlen.toInt()
         val jpResp = currentResponse!!.then().extract().jsonPath()
-        Attachments.attachResponse(jpResp.toString())
+        //Attachments.attachResponse(jpResp.toString())
         val listAcc:List<Map<String,Object>> = jpResp.getList("")
         assertThat(listAcc,hasSize(reqlen))
     }
@@ -125,7 +125,7 @@ class StepDefs {
     @Given("^проверить поля одиночного ответа:$")
     fun verifyFields(data:DataTable) {
         val jpResp = currentResponse!!.then().extract().jsonPath()
-        Attachments.attachResponse(jpResp.toString())
+        //Attachments.attachResponse(jpResp.toString())
         val accData:Map<String,Object> = jpResp.getMap("")
         data.asMaps(String::class.java, String::class.java).forEach { row ->
             assertThat(accData[row["имя"]].toString(),equalTo(row["значение"]))
@@ -147,10 +147,12 @@ class StepDefs {
 
     class Attachments {
         companion object {
+            /*
             @Attachment("response")
             fun attachResponse(resp:String): ByteArray {
                 return resp.toByteArray()
             }
+            */
 
         }
     }
