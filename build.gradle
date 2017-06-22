@@ -16,7 +16,7 @@ buildscript {
 
 apply plugin: "io.ratpack.ratpack-groovy"
 apply plugin: "kotlin"
-apply plugin: "io.qameta.allure"
+//apply plugin: "io.qameta.allure"
 
 
 repositories {
@@ -34,21 +34,28 @@ dependencies {
   testCompile "junit:junit:4.12"
   testCompile 'io.rest-assured:rest-assured:3.0.3'
   testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+  testCompile "info.cukes:cucumber-java:1.2.5"
+  testCompile "info.cukes:cucumber-junit:1.2.5"
 }
 
 task stage {
   dependsOn installDist
 
 }
-
+/*
 allure {
   autoconfigure = true
   useCucumberJVM {
-    version = '2.0-BETA10'
+    version = '2.0-BETA9'
   }
+
+  useJunit4 {
+    version = '2.0-BETA9'
+  }
+
   version = '2.1.1'
 }
-
+*/
 test {
   systemProperty "AppBaseURL", "http://localhost:5050/"
 }
