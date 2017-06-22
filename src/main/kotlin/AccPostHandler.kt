@@ -17,8 +17,9 @@ class AccPostHandler : Handler {
                 return ctx.response.status(500).send("Invalid account")
             }
             if(operation.isNullOrEmpty()) return ctx.response.status(500).send("Operation is not set");
-            var account = storage.accounts.find { it.account_id.toString().equals(account_id) }
-            if(account==null) return ctx.response.status(404).send("account is not found");
+            val account = storage.accounts.find { it.account_id.toString().equals(account_id) }
+                    ?: return ctx.response.status(404).send("account is not found");
+
             when(operation) {
                 "rename" -> renameAccount(ctx,account)
                 "delete" -> deleteAccount(ctx,account.account_id)
@@ -40,8 +41,15 @@ class AccPostHandler : Handler {
 
     fun deleteAccount(ctx: Context,accountId:Int) {
         val storage:CardsStorage = ctx.get(CardsStorage::class.java)
-        if(storage.deleteAccount(accountId))
+
+        val account = storage.accounts.find { it.account_id.toString().equals(accountId) }
+                ?: return ctx.response.status(404).send("account not deleted")
+
+        var ind = storage.accounts.indexOf(account);
+        if(ind==0) ind=storage.accounts.size-1;
+        storage.accounts.removeAt(ind-1);
+        //if(storage.deleteAccount(accountId))
             ctx.response.status(204).send("account deleted")
-        else ctx.response.status(404).send("account not deleted")
+        //else ctx.response.status(404).send("account not deleted")
     }
 }
