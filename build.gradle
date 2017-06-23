@@ -13,7 +13,7 @@ buildscript {
 
 apply plugin: "io.ratpack.ratpack-groovy"
 apply plugin: "kotlin"
-apply plugin: 'io.qameta.allure'
+//apply plugin: 'io.qameta.allure'
 
 
 repositories {
@@ -31,19 +31,19 @@ dependencies {
   testCompile "junit:junit:4.12"
   testCompile 'io.rest-assured:rest-assured:3.0.3'
   testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
-  testCompile "ru.yandex.qatools.allure:allure-junit-adaptor:1.5.4"
+  //testCompile "ru.yandex.qatools.allure:allure-junit-adaptor:1.5.4"
   runtime "org.slf4j:slf4j-simple:1.7.21"
 }
 
 task stage {
   dependsOn installDist
 }
-
+/*
 allure {
   autoconfigure = true
   version = '2.1.0'
 }
-
+*/
 test {
   systemProperty "AppBaseURL", "http://localhost:5050/"
 }
