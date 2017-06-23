@@ -55,10 +55,10 @@ public class AccountsPostTest {
         .statusCode(200)
         .extract().jsonPath();
     Map<String, Object> afterAcc = afterJP.getMap("");
-    assertThat("element has wrong id", afterAcc.get("account_id"), Matchers.equalTo(beforeAcc.get("account_id")));
-    assertThat("element has wrong title", afterAcc.get("title"), Matchers.equalTo(newName));
-    assertThat("element has wrong small title", afterAcc.get("title_small"), Matchers.equalTo(beforeAcc.get("title_small")));
-    assertThat("element has wrong currency", afterAcc.get("currency"), Matchers.equalTo(beforeAcc.get("currency")));
+    assertThat("неверный id", afterAcc.get("account_id"), Matchers.equalTo(beforeAcc.get("account_id")));
+    assertThat("неверный  title", afterAcc.get("title"), Matchers.equalTo(newName));
+    assertThat("неверный small title", afterAcc.get("title_small"), Matchers.equalTo(beforeAcc.get("title_small")));
+    assertThat("неверная currency", afterAcc.get("currency"), Matchers.equalTo(beforeAcc.get("currency")));
   }
 
   @Test
@@ -123,10 +123,10 @@ public class AccountsPostTest {
         .statusCode(200)
         .extract().jsonPath();
     List<Map<String, Object>> afterAccs = afterJP.getList("");
-    assertThat("before and after has equal size", afterAccs.size(), Matchers.equalTo(beforeAccs.size()-1));
-    assertTrue("before doesn't contain all from after", beforeAccs.containsAll(afterAccs));
-    assertFalse("after contains all element from before",afterAccs.containsAll(beforeAccs));
-    assertThat("after has original element",afterAccs,not(hasItem(elem2delete)));
+    assertThat("размер списка до и после удаления одинаковый", afterAccs.size(), Matchers.equalTo(beforeAccs.size()-1));
+    assertTrue("список до удаления не содержит элементов после удаления", beforeAccs.containsAll(afterAccs));
+    assertFalse("список после удаления содержит все элементы из списка до удаления",afterAccs.containsAll(beforeAccs));
+    assertThat("список после удаления содержит удаленный элемент",afterAccs,not(hasItem(elem2delete)));
   }
 
 

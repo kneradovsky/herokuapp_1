@@ -44,7 +44,7 @@ public class AccountsGetTest {
         .extract().jsonPath();
     List<Map<String,Object>> elems = response.getList("");
     boolean elemsFound = elems.stream().map(m -> ((Integer)m.get("account_id"))).filter(i -> i==12345678 || i==12345679).findAny().isPresent();
-    assertTrue("required elements not found",elemsFound);
+    assertTrue("не найден искомый элемент",elemsFound);
   }
   @Test
   public void testAccount() {
@@ -53,9 +53,9 @@ public class AccountsGetTest {
         .statusCode(200)
         .extract().jsonPath();
     Map<String,Object> elems = response.getMap("");
-    assertThat("element has wrong id",elems.get("account_id"),equalTo(12345678));
-    assertThat("element has wrong title",elems.get("title"),equalTo("Master1"));
-    assertThat("element has wrong currency",elems.get("currency"),equalTo("RUR"));
+    assertThat("неверный id элемента",elems.get("account_id"),equalTo(12345678));
+    assertThat("неверный title элемента",elems.get("title"),equalTo("Master1"));
+    assertThat("неверный currency элемента",elems.get("currency"),equalTo("RUR"));
   }
 
   @Test
