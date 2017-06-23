@@ -141,7 +141,7 @@ class StepDefs {
         assertThat("неверный размер списка после удаления", curVal.size, equalTo(storedVal.size-1))
         assertTrue("лишние элементы после удаления", storedVal.containsAll(curVal))
         assertFalse("элементы не удалились",curVal.containsAll(storedVal));
-        assertThat("after has original element",curVal,not(hasItem(elem2Delete)));
+        assertThat("после удаления присутствует оригинальный элемент",curVal,not(hasItem(elem2Delete)));
     }
 
 
