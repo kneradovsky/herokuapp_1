@@ -27,7 +27,7 @@ public class AccountsGetTest {
   private String baseUrl = hostUrl+"apitest";
   private static String hostUrl = System.getProperty("AppBaseURL","https://kn-ktapp.herokuapp.com/");
   RequestSpecification req = given()
-      .filters(new ErrorLoggingFilter(),new AllureAttachmentFilter());
+      .filters(new ErrorLoggingFilter());
 
   @BeforeClass
   public static void beforeClass() {
