@@ -26,8 +26,7 @@ import org.junit.runners.JUnit4;
 public class AccountsGetTest {
   private String baseUrl = hostUrl+"apitest";
   private static String hostUrl = System.getProperty("AppBaseURL","https://kn-ktapp.herokuapp.com/");
-  RequestSpecification req = given()
-      .filters(new ErrorLoggingFilter());
+  RequestSpecification req = given();
 
   @BeforeClass
   public static void beforeClass() {
