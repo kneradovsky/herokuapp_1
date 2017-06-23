@@ -42,7 +42,7 @@ class AccPostHandler : Handler {
     fun deleteAccount(ctx: Context,accountId:Int) {
         val storage:CardsStorage = ctx.get(CardsStorage::class.java)
 
-        val account = storage.accounts.find { it.account_id.toString().equals(accountId) }
+        val account = storage.accounts.find { it.account_id==accountId }
                 ?: return ctx.response.status(404).send("account not deleted")
 
         var ind = storage.accounts.indexOf(account);
